@@ -1,0 +1,47 @@
+.admin-container {
+  padding: 20px;
+}
+
+.admin-header {
+  margin-bottom: 20px;
+}
+
+.admin-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stats-card {
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background: #f5f5f5;
+}
+
+.table-container {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.search-filters {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.date-picker {
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .admin-container {
+    padding: 10px;
+  }
+  
+  .search-filters {
+    flex-direction: column;
+  }
+} 

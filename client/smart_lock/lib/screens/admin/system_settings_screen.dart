@@ -65,11 +65,11 @@ class _SystemSettingsScreenState extends State<SystemSettingsScreen> {
   }
 
   void _showHelpDialog() {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
     showDialog(
       context: context,
       builder: (context) {
-        final l10n = AppLocalizations.of(context)!;
+        final l10n = AppLocalizations.of(context);
         return AlertDialog(
           title: Text(l10n.connectionHelp),
           content: SingleChildScrollView(
@@ -122,7 +122,7 @@ class _SystemSettingsScreenState extends State<SystemSettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(

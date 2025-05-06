@@ -48,7 +48,7 @@ class MyAppState extends State<MyApp> {
       supportedLocales: AppLocalizations.supportedLocales,
       home: const AdminDashboard(),
       onGenerateTitle: (context) =>
-          AppLocalizations.of(context)!.smartLockAdmin,
+          AppLocalizations.of(context).smartLockAdmin,
     );
   }
 }
@@ -98,7 +98,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     showDialog(
       context: context,
       builder: (context) {
-        final l10n = AppLocalizations.of(context)!;
+        final l10n = AppLocalizations.of(context);
         return AlertDialog(
           title: Text(l10n.addNewRecord),
           content: Column(
@@ -152,7 +152,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.attendanceSystem),

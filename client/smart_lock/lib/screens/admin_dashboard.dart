@@ -89,7 +89,7 @@ class _AdminDashboardState extends State<AdminDashboard>
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
     return Scaffold(
@@ -149,7 +149,7 @@ class _AdminDashboardState extends State<AdminDashboard>
   Widget _buildQuickStats(AppLocalizations l10n, ThemeData theme) {
     final activeUserPercentage = (activeUsers / totalUsers * 100).round();
 
-    return Container(
+    return SizedBox(
       height: 180,
       child: Row(
         children: [
@@ -193,7 +193,7 @@ class _AdminDashboardState extends State<AdminDashboard>
                               ),
                             ),
                             Text(
-                              '$activeUsers/${totalUsers}',
+                              '$activeUsers/$totalUsers',
                               style: theme.textTheme.titleMedium?.copyWith(
                                 color: Colors.blue[700],
                               ),
@@ -281,10 +281,10 @@ class _AdminDashboardState extends State<AdminDashboard>
                   ),
                   titlesData: FlTitlesData(
                     show: true,
-                    rightTitles: AxisTitles(
+                    rightTitles: const AxisTitles(
                       sideTitles: SideTitles(showTitles: false),
                     ),
-                    topTitles: AxisTitles(
+                    topTitles: const AxisTitles(
                       sideTitles: SideTitles(showTitles: false),
                     ),
                     bottomTitles: AxisTitles(
@@ -300,7 +300,7 @@ class _AdminDashboardState extends State<AdminDashboard>
                         },
                       ),
                     ),
-                    leftTitles: AxisTitles(
+                    leftTitles: const AxisTitles(
                       sideTitles: SideTitles(
                         showTitles: true,
                         interval: 40,
@@ -326,7 +326,7 @@ class _AdminDashboardState extends State<AdminDashboard>
                       color: theme.primaryColor,
                       barWidth: 3,
                       isStrokeCapRound: true,
-                      dotData: FlDotData(show: false),
+                      dotData: const FlDotData(show: false),
                       belowBarData: BarAreaData(
                         show: true,
                         color: theme.primaryColor.withOpacity(0.1),
@@ -363,10 +363,10 @@ class _AdminDashboardState extends State<AdminDashboard>
                   barTouchData: BarTouchData(enabled: false),
                   titlesData: FlTitlesData(
                     show: true,
-                    rightTitles: AxisTitles(
+                    rightTitles: const AxisTitles(
                       sideTitles: SideTitles(showTitles: false),
                     ),
-                    topTitles: AxisTitles(
+                    topTitles: const AxisTitles(
                       sideTitles: SideTitles(showTitles: false),
                     ),
                     bottomTitles: AxisTitles(
@@ -379,7 +379,7 @@ class _AdminDashboardState extends State<AdminDashboard>
                         reservedSize: 30,
                       ),
                     ),
-                    leftTitles: AxisTitles(
+                    leftTitles: const AxisTitles(
                       sideTitles: SideTitles(
                         showTitles: true,
                         reservedSize: 40,

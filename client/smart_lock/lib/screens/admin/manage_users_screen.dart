@@ -9,31 +9,31 @@ class ManageUsersScreen extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.createUser),
+        title: Text(AppLocalizations.of(context).createUser),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
               decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.userName),
+                  labelText: AppLocalizations.of(context).userName),
             ),
             TextField(
               decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.userEmail),
+                  labelText: AppLocalizations.of(context).userEmail),
             ),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(AppLocalizations.of(context).cancel),
           ),
           TextButton(
             onPressed: () {
               // Add user logic
               Navigator.pop(context);
             },
-            child: Text(AppLocalizations.of(context)!.add),
+            child: Text(AppLocalizations.of(context).add),
           ),
         ],
       ),
@@ -54,7 +54,7 @@ class ManageUsersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
