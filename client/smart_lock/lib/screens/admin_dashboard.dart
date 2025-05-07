@@ -10,6 +10,7 @@ import 'admin/access_control_screen.dart';
 import 'admin/reports_screen.dart';
 import 'admin/system_logs_screen.dart';
 import 'admin/cloud_storage_screen.dart';
+import 'admin/full_activity_log_screen.dart';
 
 class AdminDashboard extends StatefulWidget {
   const AdminDashboard({Key? key}) : super(key: key);
@@ -53,6 +54,15 @@ class _AdminDashboardState extends State<AdminDashboard>
     35,
     30
   ];
+
+  List<Activity> activities = List.generate(
+    5,
+    (i) => Activity(
+      user: 'User ${i + 1}',
+      action: 'Action performed',
+      time: DateTime.now(),
+    ),
+  );
 
   @override
   void initState() {
@@ -214,7 +224,7 @@ class _AdminDashboardState extends State<AdminDashboard>
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+                  children: [
                     Text(
                       l10n.totalUsers,
                       style: theme.textTheme.titleMedium?.copyWith(
@@ -254,12 +264,12 @@ class _AdminDashboardState extends State<AdminDashboard>
 
   Widget _buildUserTrends(AppLocalizations l10n, ThemeData theme) {
     return Card(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
+          children: [
+            Text(
               l10n.analytics,
               style: theme.textTheme.titleLarge,
             ),
@@ -349,7 +359,7 @@ class _AdminDashboardState extends State<AdminDashboard>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-              Text(
+            Text(
               'User Activity by Hour',
               style: theme.textTheme.titleLarge,
             ),
@@ -410,10 +420,10 @@ class _AdminDashboardState extends State<AdminDashboard>
                           width: 8,
                           borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(4),
-                ),
-              ),
-            ],
-          ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -541,7 +551,13 @@ class _AdminDashboardState extends State<AdminDashboard>
                       fontWeight: FontWeight.bold,
                     )),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const FullActivityLogScreen()),
+                    );
+                  },
                   child: const Text('View All'),
                 ),
               ],
@@ -550,22 +566,101 @@ class _AdminDashboardState extends State<AdminDashboard>
             ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: 5,
+              itemCount: activities.length,
               separatorBuilder: (context, index) => const Divider(),
               itemBuilder: (context, index) {
+                final activity = activities[index];
                 return ListTile(
                   leading: CircleAvatar(
                     backgroundColor: theme.colorScheme.primary.withOpacity(0.1),
                     child: Icon(Icons.person, color: theme.colorScheme.primary),
                   ),
-                  title: Text('User ${index + 1}'),
+                  title: Text(activity.user),
                   subtitle: Text(
-                    'Action performed at ${DateTime.now().toString()}',
+                    '${activity.action} at ${activity.time.toString()}',
                     style: theme.textTheme.bodySmall,
                   ),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.more_vert),
-                    onPressed: () {},
+                  trailing: PopupMenuButton<String>(
+                    onSelected: (value) async {
+                      if (value == 'view') {
+                        await showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text('Activity Details'),
+                            content: Text(
+                                'User: ${activity.user}\nAction: ${activity.action}\nTime: ${activity.time}'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: const Text('Close'),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else if (value == 'edit') {
+                        TextEditingController actionController =
+                            TextEditingController(text: activity.action);
+                        await showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text('Edit Activity'),
+                            content: TextField(
+                              controller: actionController,
+                              decoration: InputDecoration(labelText: 'Action'),
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    activities[index] = Activity(
+                                      user: activity.user,
+                                      action: actionController.text,
+                                      time: activity.time,
+                                    );
+                                  });
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Save'),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else if (value == 'delete') {
+                        final confirm = await showDialog<bool>(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Delete Activity'),
+                            content: const Text(
+                                'Are you sure you want to delete this activity?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, false),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, true),
+                                child: const Text('Delete'),
+                              ),
+                            ],
+                          ),
+                        );
+                        if (confirm == true) {
+                          setState(() {
+                            activities.removeAt(index);
+                          });
+                        }
+                      }
+                    },
+                    itemBuilder: (context) => [
+                      const PopupMenuItem(value: 'view', child: Text('View')),
+                      const PopupMenuItem(value: 'edit', child: Text('Edit')),
+                      const PopupMenuItem(
+                          value: 'delete', child: Text('Delete')),
+                    ],
                   ),
                 );
               },
@@ -584,4 +679,12 @@ class _ActionItem {
   final VoidCallback onTap;
 
   _ActionItem(this.title, this.icon, this.color, this.onTap);
+}
+
+class Activity {
+  final String user;
+  final String action;
+  final DateTime time;
+
+  Activity({required this.user, required this.action, required this.time});
 }
