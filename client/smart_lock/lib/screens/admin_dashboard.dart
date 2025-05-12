@@ -476,52 +476,66 @@ class _AdminDashboardState extends State<AdminDashboard>
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        int crossAxisCount = 3;
+        double maxCrossAxisExtent = 320;
+        double childAspectRatio = 1.1;
         if (constraints.maxWidth < 600) {
-          crossAxisCount = 2;
+          maxCrossAxisExtent = 240;
+          childAspectRatio = 1;
         } else if (constraints.maxWidth > 1200) {
-          crossAxisCount = 4;
+          maxCrossAxisExtent = 360;
+          childAspectRatio = 1.2;
         }
 
         return GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: crossAxisCount,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            childAspectRatio: 1.2,
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: maxCrossAxisExtent,
+            mainAxisSpacing: 20,
+            crossAxisSpacing: 20,
+            childAspectRatio: childAspectRatio,
           ),
           itemCount: actions.length,
           itemBuilder: (context, index) {
             final action = actions[index];
             return Card(
-              elevation: 2,
+              elevation: 3,
+              surfaceTintColor: theme.colorScheme.surface,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
+              ),
+              clipBehavior: Clip.antiAlias,
               child: InkWell(
                 onTap: action.onTap,
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(24),
+                splashColor: action.color.withOpacity(0.15),
+                highlightColor: action.color.withOpacity(0.08),
                 child: Container(
+                  padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(24),
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                        action.color.withOpacity(0.1),
-                        action.color.withOpacity(0.05),
+                        action.color.withOpacity(0.08),
+                        action.color.withOpacity(0.03),
                       ],
                     ),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Icon(action.icon, size: 24, color: action.color),
-                      const SizedBox(height: 8),
+                      Icon(action.icon, size: 40, color: action.color),
+                      const SizedBox(height: 18),
                       Text(
                         action.title,
                         textAlign: TextAlign.center,
-                        style: theme.textTheme.titleSmall?.copyWith(
+                        style: theme.textTheme.titleMedium?.copyWith(
                           color: action.color,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.1,
                         ),
                       ),
                     ],
