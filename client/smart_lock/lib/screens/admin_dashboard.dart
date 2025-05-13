@@ -178,7 +178,7 @@ class _AdminDashboardState extends State<AdminDashboard>
                           child: CircularProgressIndicator(
                             value: _animation.value * activeUsers / totalUsers,
                             strokeWidth: 12,
-                            backgroundColor: Colors.grey[200],
+                            backgroundColor: Colors.grey.shade300,
                             valueColor: AlwaysStoppedAnimation<Color>(
                               Colors.blue[400]!,
                             ),
@@ -248,7 +248,7 @@ class _AdminDashboardState extends State<AdminDashboard>
                     const Spacer(),
                     LinearProgressIndicator(
                       value: _animation.value,
-                      backgroundColor: Colors.grey[200],
+                      backgroundColor: Colors.grey.shade300,
                       valueColor: AlwaysStoppedAnimation<Color>(
                         theme.primaryColor,
                       ),
@@ -285,7 +285,7 @@ class _AdminDashboardState extends State<AdminDashboard>
                     horizontalInterval: 20,
                     getDrawingHorizontalLine: (value) {
                       return FlLine(
-                        color: Colors.grey[300],
+                        color: Colors.grey.shade300,
                         strokeWidth: 1,
                       );
                     },
@@ -405,7 +405,7 @@ class _AdminDashboardState extends State<AdminDashboard>
                     horizontalInterval: 20,
                     getDrawingHorizontalLine: (value) {
                       return FlLine(
-                        color: Colors.grey[300],
+                        color: Colors.grey.shade300,
                         strokeWidth: 1,
                       );
                     },
@@ -601,7 +601,7 @@ class _AdminDashboardState extends State<AdminDashboard>
                         await showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                            title: Text('Activity Details'),
+                            title: const Text('Activity Details'),
                             content: Text(
                                 'User: ${activity.user}\nAction: ${activity.action}\nTime: ${activity.time}'),
                             actions: [
@@ -618,10 +618,10 @@ class _AdminDashboardState extends State<AdminDashboard>
                         await showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                            title: Text('Edit Activity'),
+                            title: const Text('Edit Activity'),
                             content: TextField(
                               controller: actionController,
-                              decoration: InputDecoration(labelText: 'Action'),
+                              decoration: const InputDecoration(labelText: 'Action'),
                             ),
                             actions: [
                               TextButton(

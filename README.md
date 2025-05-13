@@ -312,3 +312,39 @@ class Responsive {
 - User activity graphs
 - Department statistics
 - Performance metrics 
+
+# Smart Lock Admin Prototype
+
+## Features
+- Admin dashboard with analytics and user stats
+- Attendance records with clickable user details dialog
+- Export attendance data as CSV, PDF, or TXT
+- Logs/History screen (accessible from the dashboard)
+- Notifications (icon in the app bar)
+- Responsive UI for different screen sizes
+- Subtle animations on feature cards
+
+## How to Run
+1. Ensure you have Flutter (3.x+) and Dart SDK installed.
+2. Navigate to the `smart_lock` directory:
+   ```sh
+   cd smart_lock
+   ```
+3. Get dependencies:
+   ```sh
+   flutter pub get
+   ```
+4. Run the app in Chrome:
+   ```sh
+   flutter run -d chrome
+   ```
+
+## How to Use
+- **Export Data:** Use the export buttons above the attendance records to download CSV, PDF, or TXT files.
+- **User Details:** Click any attendance record to view more details in a dialog.
+- **Logs:** Click the history icon in the app bar to view the logs/history screen.
+- **Notifications:** Click the bell icon in the app bar to view notifications.
+
+## Notes
+- This is a prototype. Data is static and for demonstration only.
+- For feedback or issues, contact the development team. 

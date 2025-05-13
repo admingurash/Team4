@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'screens/admin_dashboard.dart';
 
@@ -243,7 +242,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                       if (record.checkOut != null) ...[
                         const SizedBox(width: 32),
                         Expanded(
-                          child: Column(
+        child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
@@ -253,7 +252,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                                   fontSize: 12,
                                 ),
                               ),
-                              Text(
+            Text(
                                 _formatDateTime(record.checkOut!),
                                 style: const TextStyle(fontSize: 14),
                               ),
@@ -262,9 +261,9 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                         ),
                       ],
                     ],
-                  ),
-                ],
-              ),
+            ),
+          ],
+        ),
             ),
           );
         },
